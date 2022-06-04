@@ -9,12 +9,21 @@
       <div>{{ description }}</div>
       <div>{{ dimensions }}</div>
     </div>
+    <RepContact
+      :salesRep="salesRep"
+      :itemId="itemId"
+    ></RepContact>
   </div>
 </template>
 
 <script>
+import RepContact from './/RepContact.vue';
+
 export default {
   name: 'ProductDetail',
+  components: {
+    RepContact,
+  },
   props: {
     itemId: String,
     photoName: String,
@@ -22,6 +31,7 @@ export default {
     description: String,
     dimensions: String,
     basePrice: Number,
+    salesRep: Object,
   },
 
   computed: {

@@ -11,7 +11,8 @@
     :itemName="itemName"
     :description="description"
     :dimensions="dimensions"
-    :basePrice="basePrice">
+    :basePrice="basePrice"
+    :salesRep="salesRep">
   </ProductDetail>
 </template>
 
@@ -31,6 +32,7 @@ export default {
     description: String,
     dimensions: String,
     basePrice: Number,
+    salesRep: Object,
   },
 
   data() {

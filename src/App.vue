@@ -2,17 +2,10 @@
   <header>
     <div id="header-wrapper">
       <img :alt="CompanyName" :src="ManufacturerLogo">
-      <div id="rep-contact" v-if="SalesRep">
-        <span v-if="SalesRep && SalesRepName && Message" class="rep-message-wrapper">
-          <span v-html="Message" class="message"></span>
-          <div class="signature">-{{ SalesRepName }}</div>
-        </span>
-        <div v-else-if="SalesRep && SalesRepName">
-          <div><span class="bold">Your Sales Rep:</span> {{ SalesRepName }}</div>
-        </div>
-        <div v-if="SalesRep && SalesRep.EmailAddress"><span class="bold"><i class="fa-solid fa-envelope"></i></span> <a :href="'mailto:' + SalesRep.EmailAddress">{{ SalesRep.EmailAddress }}</a></div>
-        <div v-if="SalesRep && SalesRep.Phone"><span class="bold"><i class="fa-solid fa-mobile-screen-button"></i></span> <a :href="'tel:' + SalesRep.Phone">{{ SalesRep.Phone }}</a></div>
-      </div>
+      <RepContact
+        :salesRep="SalesRep"
+        :message="Message"
+      ></RepContact>
     </div>
   </header>
   <div id="item-list-wrapper">
@@ -23,7 +16,8 @@
         :itemName="item.ItemName"
         :description="item.Description"
         :dimensions="item.Dimensions"
-        :basePrice="item.BasePrice">
+        :basePrice="item.BasePrice"
+        :salesRep="SalesRep">
       </ProductListItem>
     </div>
   </div>
@@ -31,11 +25,13 @@
 </template>
 
 <script>
+import RepContact from './components/RepContact.vue';
 import ProductListItem from './components/ProductListItem.vue';
 
 export default {
   name: 'App',
   components: {
+    RepContact,
     ProductListItem,
   },
 
@@ -1117,12 +1113,6 @@ export default {
     ManufacturerLogo() {
       return `https://images.repzio.com/productimages/${this.ManufacturerID}/logo${this.ManufacturerID}_sm.jpg`;
     },
-    SalesRepName() {
-      if (this.SalesRep && this.SalesRep.FirstName && this.SalesRep.LastName) {
-        return this.SalesRep.FirstName + ' ' + this.SalesRep.LastName;
-      }
-      return '';
-    }
   },
 }
 </script>
@@ -1171,30 +1161,6 @@ body {
         width: 80px;
         padding: 0 5px;
         background: white;
-      }
-      
-      #rep-contact {
-          background: white;
-          margin: 3px 0;
-          padding: 5px;
-          border-radius: 9px;
-
-        .rep-message-wrapper {
-          display: flex;
-          flex-direction: column;
-
-          .message {
-            color: #FFCC45;
-            font-family: "Comic Sans MS";
-
-            p {
-              margin: 0;
-            }
-          }
-          .signature {
-            align-self: flex-end;
-          }
-        }
       }
     }
   }
