@@ -12,7 +12,8 @@
     :description="description"
     :dimensions="dimensions"
     :basePrice="basePrice"
-    :salesRep="salesRep">
+    :salesRep="salesRep"
+    :logo="logo">
   </ProductDetail>
 </template>
 
@@ -33,6 +34,7 @@ export default {
     dimensions: String,
     basePrice: Number,
     salesRep: Object,
+    logo: String,
   },
 
   data() {
@@ -50,32 +52,44 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../mixins/variables.scss";
+
 .item-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  margin: 15px 0;
+  max-width: 90%;
+  height: 13.625rem;
+  margin: 0.313rem;
+  padding: 0.313rem;
   cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 15px;
+  border: 0.063rem solid transparent;
+  border-radius: 0.938rem;
   transition: all .5s;
+      
+  @media (min-width: $screen-xs) {
+    max-width: 40%;
+  }
+      
+  @media (min-width: $screen-md) {
+    max-width: 30%;
+  }
+      
+  @media (min-width: $screen-lg) {
+    max-width: 15%;
+  }
 
   &:hover {
-    border: 1px solid black;
+    border: 0.063rem solid black;
   }
-}
-.thumbnail {
-  width: 80px;
-  max-height: 200px;
-}
 
-
-
-@media (min-width: 525px) {
   .thumbnail {
-    max-width: 210px;
+    max-height: 100%;
+    max-width: 100%;
   }
 }
+
+
+
 </style>

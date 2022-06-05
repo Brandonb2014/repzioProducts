@@ -10,8 +10,14 @@
     <div v-else-if="salesRep && itemId">
       <span>Do you want this product?<br />Contact me to get this ordered</span>
     </div>
-    <div v-if="salesRep && salesRep.EmailAddress"><span class="bold"><i class="fa-solid fa-envelope"></i></span> <a :href="'mailto:' + salesRep.EmailAddress">{{ salesRep.EmailAddress }}</a></div>
-    <div v-if="salesRep && salesRep.Phone"><span class="bold"><i class="fa-solid fa-mobile-screen-button"></i></span> <a :href="'tel:' + salesRep.Phone">{{ salesRep.Phone }}</a></div>
+    <div v-if="salesRep && salesRep.EmailAddress">
+      <i class="fa-solid fa-envelope"></i>
+      &nbsp;<a :href="'mailto:' + salesRep.EmailAddress">{{ salesRep.EmailAddress }}</a>
+    </div>
+    <div v-if="salesRep && salesRep.Phone">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      &nbsp;<a :href="'tel:' + salesRep.Phone">{{ salesRep.Phone }}</a>
+    </div>
   </div>
 </template>
 
@@ -32,28 +38,24 @@ export default {
       return '';
     }
   },
-
-  methods: {
-    closeModal() {
-      this.$emit('closeModal');
-    }
-  },
 }
 </script>
 
-<style  lang="scss" scoped>
+<style  lang="scss">
+@import "../mixins/variables.scss";
+
 #rep-contact {
-    background: white;
-    margin: 3px 0;
-    padding: 5px;
-    border-radius: 9px;
+  background: white;
+  margin: 0.188rem;
+  padding: 0.313rem;
+  border-radius: 0.563rem;
 
   .rep-message-wrapper {
     display: flex;
     flex-direction: column;
 
     .message {
-      color: #FFCC45;
+      color: $secondary-font-color;
       font-family: "Comic Sans MS";
 
       p {

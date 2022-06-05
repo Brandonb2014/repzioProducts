@@ -1,7 +1,7 @@
 <template>
   <header>
     <div id="header-wrapper">
-      <img :alt="CompanyName" :src="ManufacturerLogo">
+      <img :alt="CompanyName" :src="ManufacturerLogo" />
       <RepContact
         :salesRep="SalesRep"
         :message="Message"
@@ -9,17 +9,17 @@
     </div>
   </header>
   <div id="item-list-wrapper">
-    <div v-for="(item, itemIndex) in items" :key="itemIndex">
-      <ProductListItem
-        :itemId="item.ItemID"
-        :photoName="item.PhotoName"
-        :itemName="item.ItemName"
-        :description="item.Description"
-        :dimensions="item.Dimensions"
-        :basePrice="item.BasePrice"
-        :salesRep="SalesRep">
-      </ProductListItem>
-    </div>
+    <ProductListItem
+      v-for="(item, itemIndex) in items" :key="itemIndex"
+      :itemId="item.ItemID"
+      :photoName="item.PhotoName"
+      :itemName="item.ItemName"
+      :description="item.Description"
+      :dimensions="item.Dimensions"
+      :basePrice="item.BasePrice"
+      :salesRep="SalesRep"
+      :logo="ManufacturerLogo">
+    </ProductListItem>
   </div>
 
 </template>
@@ -1111,19 +1111,14 @@ export default {
 
   computed: {
     ManufacturerLogo() {
-      return `https://images.repzio.com/productimages/${this.ManufacturerID}/logo${this.ManufacturerID}_sm.jpg`;
+      return `https://images.repzio.com/productimages/${this.ManufacturerID}/logo${this.ManufacturerID}_lg.jpg`;
     },
   },
 }
 </script>
 
 <style lang="scss">
-// Global colors
-$primary-font-color: rgb(206, 206, 206);
-$secondary-font-color: #ffbe1d;
-$secondary-bg-color: rgba(102,102,102,.8);
-
-// Responsive breakpoints
+@import ".//mixins/variables.scss";
 
 body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -1131,6 +1126,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin: 0;
+  font-size: 0.5rem;
+
+  @media (min-width: $screen-xs) {
+    font-size: 0.6669rem;
+  }
+
+  @media (min-width: $screen-sm) {
+    font-size: 0.8331rem;
+  }
 
   a {
     color: $secondary-bg-color;
@@ -1144,23 +1148,39 @@ body {
 
   header {
     background: rgba(102,102,102,.8);
-    padding: 10px;
+    position: sticky;
+    top: 0;
 
     #header-wrapper {
-      max-width: 700px;
       width: 100%;
-      margin: 5px auto;
+      max-width: 75rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      font-size: 8pt;
+      margin: 0 auto;
+      flex-direction: column;
+      
+      @media (min-width: $screen-xs) {
+        flex-direction: row;
+      }
+      
+      @media (min-width: $screen-md) {
+        padding: 0.375rem auto;
+      }
 
       img {
-        border-radius: 5px;
-        width: 80px;
-        padding: 0 5px;
+        border-radius: 0.313rem;
+        width: 5rem;
+        padding: 0 0.313rem;
         background: white;
+      
+        @media (min-width: $screen-sm) {
+          width: 6.063rem;
+        }
+      
+        @media (min-width: $screen-md) {
+          width: 7.813rem;
+        }
       }
     }
   }
@@ -1168,24 +1188,14 @@ body {
   #item-list-wrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    width: 90vw;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+
   }
   .bold {
     font-weight: bold;
-  }
-}
-
-@media (min-width: 525px) {
-  #header-wrapper {
-    font-size: 10pt;
-  }
-}
-
-@media (min-width: 750px) {
-  #header-wrapper {
-    font-size: 12pt;
   }
 }
 </style>
